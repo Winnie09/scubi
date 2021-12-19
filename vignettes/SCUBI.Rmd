@@ -1,9 +1,13 @@
 ---
 title: "Single-cell Unbiased Visualization with SCUBI"
-output: pdf_document
 author:
-  - Wenpin Hou, Department of Biostatistics, Johns Hopkins Bloomberg School of Public Health
-  - Zhicheng Ji, Department of Biostatistics and Bioinformatics, Duke University School of Medicine
+- Wenpin Hou, Department of Biostatistics, Johns Hopkins Bloomberg School of Public
+  Health
+- Zhicheng Ji, Department of Biostatistics and Bioinformatics, Duke University School
+  of Medicine
+output:
+  html_document:
+    df_print: paged
 ---
 
 ```{r setup, include=FALSE}
@@ -56,6 +60,13 @@ There are four required inputs: the two dimensions (dim1 and dim2), the gene exp
 scubi_expression(dim1 = umap1, dim2 = umap2, count = count, gene = 'CD3D')
 ```
 
+SCUBI supports the plotting of multiple genes on the same plot. For example, below shows and example plotting the expression of CD3D, CD4, CD14 , and CCL3 genes.
+
+```{r}
+scubi_expression(dim1 = umap1, dim2 = umap2, count = count, gene = list('CD3D','CD4','CD14','CCL3'))
+```
+
+
 Optionally, the size of the squares can be controlled by resolution. Resolution is set to be around 10 for UMAP by default. A lower resolution will result in larger squares which aggregates information from more cells but with lower resolution. A small resolution is desired with small number of cells and a large resolution is desired with large number of cells.
 
 Below shows the effect if we decrease resolution to 2, which results in larger squares.
@@ -103,13 +114,6 @@ There are three required inputs: the two dimensions (dim1 and dim2) and the disc
 
 ```{r}
 scubi_discrete(dim1 = umap1, dim2 = umap2, feature = sample)
-```
-
-To address the bias introduced by the unbalanced total number of cells from different categories, this mode also supports normalization of the total number of cells.
-
-
-```{r}
-scubi_discrete(dim1 = umap1, dim2 = umap2, feature = sample, normalize = T)
 ```
 
 This mode also accepts 'resolution', 'plot', and 'palette' as optional arguments.
